@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package user.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/olesonya/highload-architect-course/homework.01/pkg/grpc/user/v1;user";
+
+service UserService {
+  rpc Register(RegisterRequest) returns (RegisterResponse) {}
+  rpc Get(GetRequest) returns (GetResponse) {}
+  rpc Login (LoginRequest) returns (LoginResponse) {}
+}
+
+message UserInfo {
+  string first_name = 1;
+  string second_name = 2;
+  string birthdate = 3; // формат 2017-01-30
+  string biography = 4; // хобби, интересы и т.п.
+  string city = 5;
+}
+
+message User {
+  string user_id = 1;
+  UserInfo user_info = 2;
+}
+
+message RegisterRequest {
+  UserInfo user_info = 1;
+  string user_pass = 2;
+}
+
+message RegisterResponse {
+  string user_id = 1;
+}
+
+message GetRequest {
+  string user_id = 1;
+}
+
+message GetResponse {
+  User user = 1;
+}
+
+message LoginRequest {
+  string user_id = 1;
+  string user_pass = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+}
